@@ -16,9 +16,9 @@ I ended up using the following devices and sensors for the Pebble remote. Pebble
 ##IR
 Infrared, or IR, communication is an inexpensive and widely used wireless communication technology. IR has a slightly longer wavelength than visible light, and are therefore perfect for wireless communication since it's undetectable to the human eye. Most televisions these days still use IR for interaction, and the remote is easily replaceable by an Arduino with transmitting IR LED attached.
 
-When pressing a button on your favorite remote, the IR LED repeatedly blink thousands of times per second to transmit information to the TV. Before transmitting IR signals from the Arduino, you have to find the correct signal frequency to broadcast. Sounds like an interesting challenge? Not really. Luckily Ken Shirriff has written a great Arduino library for sending and receiving IR data [1]. Simply attach an IR receiver to the Arduino, press wanted buttons on the different remotes, and record the received data. Easy as pie!
+When pressing a button on your favorite remote, the IR LED repeatedly blink thousands of times per second to transmit information to the TV. Before transmitting IR signals from the Arduino, you have to find the correct signal frequency to broadcast. Sounds like an interesting challenge? Not really. Luckily [Ken Shirriff has written a great Arduino library](https://github.com/shirriff/Arduino-IRremote) for sending and receiving IR data. Simply attach an IR receiver to the Arduino, press wanted buttons on the different remotes, and record the received data. Easy as pie!
 
-The next step is replacing the IR receiver with a transmitter and slightly change some parts of the code from receiving to sending signals. To complete the Arduino you need a way to tell it when to blink the IR transmitter. This is easily done by attaching a 433 MHz radio receiver to the Arduino, and using an additional Arduino library for operating remote controlled devices through radio signals [2]. A fully functional program could look something like the code below. 
+The next step is replacing the IR receiver with a transmitter and slightly change some parts of the code from receiving to sending signals. To complete the Arduino you need a way to tell it when to blink the IR transmitter. This is easily done by attaching a 433 MHz radio receiver to the Arduino, and using [an additional Arduino library for operating remote controlled devices through radio signals](https://code.google.com/p/rc-switch/). A fully functional program could look something like the code below. 
 
 ```c
 #include <IRremote.h>
@@ -52,7 +52,7 @@ I already had a Raspberry Pi mounted on the wall, running a Node.js server and d
 
 The 433 MHz transmitter connected to the Raspberry Pi through GPIO pins is easily controlled through Python scripts or command line utilities. Node.js can handle both, so with a small REST API the transmitter could be controlled from any device connected to the local network. Now, any network request to the Raspberry Pi is forwarded to listening devices through radio signals.
 
-433Utils is a collection of code and documentation designed to assist in the connection and usage of 433 MHz transmit and receive modules, an open source project available on GitHub [3]. The Raspberry Pi can broadcast radio signals with just a few lines of code using this command line utility, here illustrated with a Python script.
+433Utils is a collection of code and documentation designed to assist in the connection and usage of 433 MHz transmit and receive modules, [an open source project available on GitHub](https://github.com/ninjablocks/433Utils). The Raspberry Pi can broadcast radio signals with just a few lines of code using this command line utility, here illustrated with a Python script.
 
 ```python
 #!/usr/bin/python
@@ -141,7 +141,3 @@ One of the great things with using the Raspberry Pi as a server is the possibili
 Finally, to sum up the flow and communication chain. The Pebble sends ajax requests to a smartphone over Bluetooth. The phone forward these requests to the Raspberry Pi, which broadcasts radio signals based on the received request. The Arduino receives these radio signals and forwards them through IR signals to the television. Good technology is indeed indistinguishable from magic!
  
 That's it. That's one way turning your smartwatch into a TV-remote. Fun for you and me to build, easy for others to use.
-
-* [1] - https://github.com/shirriff/Arduino-IRremote
-* [2] - https://code.google.com/p/rc-switch/
-* [3] - https://github.com/ninjablocks/433Utils
