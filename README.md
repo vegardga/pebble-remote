@@ -1,6 +1,8 @@
 #How I turned my Pebble into a TV-remote
 I love playing around with new technologies. As a software developer with an interest in robotics, the pleasure of creating and working with both software and hardware is indescribable. My last project was therefore a dream come true when I used a smartwatch to control different devices in our home, including the television.
 
+![alt text](https://raw.githubusercontent.com/vegardga/pebble-remote/master/images/DSC_0393.JPG "Pebble TV-remote")
+
 ##The idea
 At home we currently use at least three different remotes when watching television. It results in a daily battle of finding the remotes, picking them up, and pressing some buttons on each of them, one at a time. A classic first world problem, I know. Instead of buying a universal remote controller I decided to build my own. 
 
@@ -49,6 +51,8 @@ void loop() {
 
 ##Raspberry Pi as the middleman
 I already had a Raspberry Pi mounted on the wall, running a Node.js server and displaying information like the weather and upcoming calendar events. A perfect device for communicating with the IR transmitting Arduino! The choice for communication between the Raspberry Pi and Arduino fell on 433 MHz radio signals. Why not use a Wi-Fi shield on the Arduino you may ask? Because I can! A perfect chance to try another communication protocol and learn something new.
+
+![alt text](https://raw.githubusercontent.com/vegardga/pebble-remote/master/images/IMG_5379.JPG "Raspberry PI with 433 MHz transmitter attached")
 
 The 433 MHz transmitter connected to the Raspberry Pi through GPIO pins is easily controlled through Python scripts or command line utilities. Node.js can handle both, so with a small REST API the transmitter could be controlled from any device connected to the local network. Now, any network request to the Raspberry Pi is forwarded to listening devices through radio signals.
 
